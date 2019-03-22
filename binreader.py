@@ -2,6 +2,8 @@ import struct
 from os import SEEK_CUR
 from typing import BinaryIO
 
+ENDIAN_PREFIXES = ("@", "<", ">", "=", "!")
+
 
 class BinaryReader:
 	def __init__(self, buf: BinaryIO, endian: str = "<") -> None:
@@ -73,6 +75,12 @@ class BinaryReader:
 
 	def read_double(self) -> float:
 		return struct.unpack(self.endian + "d", self.read(8))[0]
+
+	def read_struct(self, format: str) -> tuple:
+		if not format.startswith(ENDIAN_PREFIXES):
+			format = self.endian + format
+		size = struct.calcsize(format)
+		return struct.unpack(format, self.read(size))
 
 	# Aliases
 

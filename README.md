@@ -44,6 +44,8 @@ The following utility methods are available:
 - `read(*args)`: Calls `read(*args)` on the buffer.
 - `seek(*args)`: Calls `seek(*args)` on the buffer.
 - `tell()`: Returns the buffer's handle position.
+- `read_struct(format)`: Read a struct from the buffer, returning a tuple of that struct.
+  Size is automatically calculated. Endianness defaults to the reader's endianness, but may be overridden.
 
 
 ## License
